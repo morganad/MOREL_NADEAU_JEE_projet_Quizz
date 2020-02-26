@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = "projet.core.service")
+@ComponentScan(basePackages = {"projet.core.service"})
 public class AppConfig {
 
     @Bean

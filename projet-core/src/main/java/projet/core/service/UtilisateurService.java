@@ -1,5 +1,6 @@
 package projet.core.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projet.core.dao.UtilisateurDAO;
 import projet.core.entity.Utilisateur;
@@ -18,3 +19,4 @@ public class UtilisateurService {
     public List<Utilisateur> findAll() { return utilisateurDAO.findAll(); }
 
 }
+
