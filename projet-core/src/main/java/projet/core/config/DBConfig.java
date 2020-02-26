@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "yncrea.lab06.core.dao")
+@EnableJpaRepositories(basePackages = "projet.core.dao")
 public class DBConfig {
 
     @Bean(destroyMethod = "close")
@@ -50,7 +50,7 @@ public class DBConfig {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.getJpaPropertyMap().put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        factory.setPackagesToScan("yncrea.lab06.core.entity");
+        factory.setPackagesToScan("projet.core.entity");
         factory.setDataSource(dataSource);
         factory.afterPropertiesSet();
         return factory.getObject();

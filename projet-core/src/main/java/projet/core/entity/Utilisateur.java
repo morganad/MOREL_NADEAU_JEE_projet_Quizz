@@ -48,6 +48,15 @@ public class Utilisateur implements Comparable<Utilisateur> {
     }
 
     public int compareTo(Utilisateur o) {
-        return 0;
+        if (nom.equals(o.nom)) {
+            return prenom.compareTo(o.prenom);
+        } else {
+            return nom.compareTo(o.nom);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return prenom +" "+nom;
     }
 }
