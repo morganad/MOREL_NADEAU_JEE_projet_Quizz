@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
 Built-By: ISEN
 Build-Jdk: 1.8.0_191
 
+=======
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: vince
+Build-Jdk: 1.8.0_221
+
+>>>>>>> master

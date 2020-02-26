@@ -32,8 +32,8 @@ Bienvenue sur notre site. Il s'agit d'un
         <script>
             angular.module("projet", []).controller("UtilisateurController", function ($http) {
                 var that = this;
-                $http({
                     method: 'GET',
+                $http({
                     url: 'http://localhost:8080/api/utilisateurs/'
                 }).then(function successCallback(response) {
                     that.utilisateurs = response.data;

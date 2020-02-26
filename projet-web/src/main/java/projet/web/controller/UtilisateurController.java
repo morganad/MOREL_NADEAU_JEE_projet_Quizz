@@ -22,8 +22,8 @@ public class UtilisateurController implements RestController {
 
     @GET
     @Path("/utilisateurs")
-    public Map<Long,String> getUtilisateurs(){
         List<Utilisateur> utilisateurs = utilisateurService.findAll();
+    public Map<Long,String> getUtilisateurs(){
         Map<Long,String> returnedMap = new HashMap<>();
         for(Utilisateur utilisateur:utilisateurs){
             returnedMap.put(utilisateur.getId(),utilisateur.getPrenom());
