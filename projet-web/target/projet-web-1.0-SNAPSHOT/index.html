@@ -9,52 +9,13 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-Bienvenue sur notre site. Il s'agit d'un
+Bienvenue sur notre site. Il s'agit d'un TEST 4
     <p>
-        Test de texte dans balise div
-        <a href="http://localhost:8080/index/hello" target="_blank"> <input type="button" value="index/hello"> </a>
-
-        <a href="/index/hello" target="_blank"> <input type="button" value="Bouton index hello lien brisé"> </a>
-
-        <a href="/api/hello" target="_blank"> <input type="button" value="Bouton api hello lien brisé"> </a>
+        <a href="quizzs.html"> <input type="button" value="Liste des quizzs"> </a>
+        <a href="utilisateurs.html"> <input type="button" value="Liste des utilisateurs"> </a>
+        <a href="questions.html"> <input type="button" value="Liste des questions"> </a>
+        <a href="quizz1.html"> <input type="button" value="Liste des questions"> </a>
     </p>
-
-    <p>Demo</p>
-    <div class="fluid-container" ng-controller="UtilisateurController as ctrl">
-        <ul class="list-group">
-            <li ng-repeat="(id,prenom) in ctrl.utilisateurs " class="list-group-item">
-                {{prenom}}
-            </li>
-        </ul>
-    </div>
-
-
-        <script>
-            angular.module("projet", []).controller("UtilisateurController", function ($http) {
-                var that = this;
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:8080/api/utilisateurs/'
-                }).then(function successCallback(response) {
-                    that.utilisateurs = response.data;
-                });
-
-                var refreshSelected = function (utilisateurId) {
-                    this.selected = {};
-                    $http({
-                        method: 'GET',
-                        url: 'http://localhost:8080/api/utilisateurs/' + utilisateurId
-                    }).then(function successCallback(response) {
-                        that.selected = response.data;
-                    });
-
-                };
-                this.loadModal = function (utilisateurId) {
-                    refreshSelected(utilisateurId);
-                }
-
-            });
-        </script>
 
 </body>
 </html>

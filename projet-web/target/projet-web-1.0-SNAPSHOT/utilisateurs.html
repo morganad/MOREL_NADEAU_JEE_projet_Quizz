@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="projet" lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <p>LISTE DES UTILISATEURS</p>
+
+    <div class="fluid-container" ng-controller="UtilisateurController as ctrl">
+        <ul class="list-group">
+            <li ng-repeat="(id,prenom) in ctrl.utilisateurs " class="list-group-item">
+                {{prenom}}
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+        angular.module("projet", []).controller("UtilisateurController", function ($http) {
+            var that = this;
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8080/api/utilisateurs/'
+            }).then(function successCallback(response) {
+                that.utilisateurs = response.data;
+            });
+
+            var refreshSelected = function (utilisateurId) {
+                this.selected = {};
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8080/api/utilisateurs/' + utilisateurId
+                }).then(function successCallback(response) {
+                    that.selected = response.data;
+                });
+
+            };
+            this.loadModal = function (utilisateurId) {
+                refreshSelected(utilisateurId);
+            }
+
+        });
+    </script>
+
+</body>
+</html>
