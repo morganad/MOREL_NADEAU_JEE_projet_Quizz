@@ -11,16 +11,11 @@ public class Utilisateur implements Comparable<Utilisateur> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String nom;
     private String prenom;
+    private String nom;
+    private long Score_id;
 
     public Utilisateur() {
-    }
-
-    public Utilisateur(long id, String nom, String prenom) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
     }
 
     public long getId() {
@@ -31,14 +26,6 @@ public class Utilisateur implements Comparable<Utilisateur> {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public String getPrenom() {
         return prenom;
     }
@@ -47,16 +34,28 @@ public class Utilisateur implements Comparable<Utilisateur> {
         this.prenom = prenom;
     }
 
-    public int compareTo(Utilisateur o) {
-        if (nom.equals(o.nom)) {
-            return prenom.compareTo(o.prenom);
-        } else {
-            return nom.compareTo(o.nom);
-        }
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public long getScore_id() {
+        return Score_id;
+    }
+
+    public void setScore_id(long score_id) {
+        Score_id = score_id;
+    }
+
+    public String toString() {
+        return prenom +" "+nom;
     }
 
     @Override
-    public String toString() {
-        return prenom +" "+nom;
+    public int compareTo(Utilisateur o) {
+        return 0;
     }
 }

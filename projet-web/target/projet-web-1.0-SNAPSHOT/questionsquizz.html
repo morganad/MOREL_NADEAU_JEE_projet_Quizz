@@ -9,7 +9,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<p>LISTE DES QUESTIONS DU QUIZZ n°1</p>
+<p>LISTE DES QUESTIONS DU QUIZZ</p>
 
 <div class="fluid-container" ng-controller="QuestionController as ctrl">
     <ul class="list-group">
@@ -22,10 +22,12 @@
 
 <script>
     angular.module("projet", []).controller("QuestionController", function ($http) {
+        var parameter = window.location.search;
+        parameter=parameter.substring(parameter.indexOf('=')+1,parameter.length);
         var that = this;
         $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/questions/1'
+            url: 'http://localhost:8080/api/questions/'+ parameter
         }).then(function successCallback(response) {
             that.questions = response.data;
         });
@@ -34,7 +36,7 @@
             this.selected = {};
             $http({
                 method: 'GET',
-                url: 'http://localhost:8080/api/questions/1' + questionId
+                url: 'http://localhost:8080/api/questions/'+ parameter + questionId
             }).then(function successCallback(response) {
                 that.selected = response.data;
             });

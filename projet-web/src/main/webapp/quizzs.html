@@ -15,6 +15,10 @@
         <ul class="list-group">
             <li ng-repeat="(id,titre) in ctrl.quizzs " class="list-group-item">
                 {{titre}}
+                <form action="questionsquizz.html">
+                    <input type="hidden" name="quizzId" value="{{id}}" />
+                    <a href="questionsquizz.html"> <input type="submit" value="Lancer"> </a>
+                </form>
             </li>
         </ul>
     </div>
