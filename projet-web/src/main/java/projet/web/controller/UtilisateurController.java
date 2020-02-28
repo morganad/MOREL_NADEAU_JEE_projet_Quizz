@@ -26,7 +26,7 @@ public class UtilisateurController implements RestController {
         List<Utilisateur> utilisateurs = utilisateurService.findAll();
         Map<Long,String> returnedMap = new HashMap<>();
         for(Utilisateur utilisateur:utilisateurs){
-            returnedMap.put(utilisateur.getId(),utilisateur.getPrenom());
+            returnedMap.put(utilisateur.getId(),utilisateur.getNom()+" "+utilisateur.getPrenom());
         }
         for (Utilisateur utilisateur:utilisateurs) {
             System.out.println(utilisateur);
