@@ -18,5 +18,15 @@ public class UtilisateurService {
 
     public List<Utilisateur> findAll() { return utilisateurDAO.findAll(); }
 
+    public long getIdByNom(String nom, String prenom){ return  utilisateurDAO.getIdByNom(nom,prenom);}
+
+    public int isPresent(String nom, String prenom) {return  utilisateurDAO.isPresent(nom,prenom);
+    }
+
+    public void saveUtilisateur(String nom, String prenom) { utilisateurDAO.saveUtilisateur(nom,prenom);
+    }
+
+    public Utilisateur getUtilisateurById(long utilisateur_id) { return  utilisateurDAO.getUtilisateurById(utilisateur_id);
+    }
 }
 

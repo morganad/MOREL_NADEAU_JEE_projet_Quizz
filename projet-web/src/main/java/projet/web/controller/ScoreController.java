@@ -1,14 +1,10 @@
 package projet.web.controller;
 
 
-import projet.core.entity.Question;
-import projet.core.entity.ReponsesQuestions;
-import projet.core.entity.ReponsesUtilisateurs;
-import projet.core.entity.Utilisateur;
-import projet.core.service.QuestionService;
-import projet.core.service.ReponsesQuestionsService;
-import projet.core.service.ReponsesUtilisateursService;
-import projet.core.service.UtilisateurService;
+import org.springframework.web.context.annotation.RequestScope;
+import projet.core.ScoreUtilisateur;
+import projet.core.entity.*;
+import projet.core.service.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,6 +32,12 @@ public class ScoreController implements RestController {
     @Inject
     private QuestionService questionService;
 
+    @Inject
+    private ScoreService scoreService;
+
+    @Inject
+    private UtilisateurService utilisateurService;
+
     @GET
     @Path("/resultats/{quizzId}")
     public Map<Integer,Integer> getResultat(@PathParam("quizzId") long quizzId){
@@ -51,6 +53,29 @@ public class ScoreController implements RestController {
         }
         returnedMap.put(score,nbrQuestions);
         return returnedMap;
+    }
+
+    @POST
+    @Path("/scores")
+    public void saveScore(ScoreUtilisateur scoreUtilisateur){
+        int isPresent = utilisateurService.isPresent(scoreUtilisateur.getNom(),scoreUtilisateur.getPrenom());
+        long idUtilisateur;
+        if (isPresent==0) {
+            utilisateurService.saveUtilisateur(scoreUtilisateur.getNom(), scoreUtilisateur.getPrenom());
+        }
+        idUtilisateur=utilisateurService.getIdByNom(scoreUtilisateur.getNom(),scoreUtilisateur.getPrenom());
+        int FirstScore = scoreService.isPresent((long) idUtilisateur);
+        if(FirstScore==0){
+            scoreService.saveScore(scoreUtilisateur.getScore(),scoreUtilisateur.getScore(),idUtilisateur);
+        } else {
+            Score score = scoreService.getScoreByUtilisateurId(idUtilisateur);
+            int meilleurScore=score.getMeilleur_score();
+            if (scoreUtilisateur.getScore()>meilleurScore){
+                meilleurScore=scoreUtilisateur.getScore();
+            }
+            scoreService.upDateScore(meilleurScore,scoreUtilisateur.getScore(),idUtilisateur);
+        }
+
     }
 
 }

@@ -15,10 +15,23 @@
     <ul class="list-group">
         <li ng-repeat="(score,nbrQuestions) in ctrl.resultats " class="list-group-item">
             VOTRE SCORE EST DE {{score}} SUR {{nbrQuestions}} !!
+            VOUS AVEZ EU {{(score/nbrQuestions)*100}} % DE BONNES REPONSES
+            <p>Entrer votre nom et votre prenom pour enregistrer votre score !</p>
+            <form action="enregistrement.html">
+                <label><b>Nom de l'utilisateur</b></label>
+                <input type="text" placeholder="Entrer votre nom" ng-model="ctrl.nom" required>
+
+                <label><b>Prenom de l'utilisateur</b></label>
+                <input type="text" placeholder="Entrer votre prenom" ng-model="ctrl.prenom" required>
+
+                <button type="button"  ng-click="ctrl.enregistrerScore((score/nbrQuestions)*100)" class="btn">ENREGISTRER LE SCORE</button>
+            </form>
         </li>
     </ul>
+
 </div>
 
+<a href="index.html"> <input type="button" value="Retour a l'accueil"> </a>
 
 <script>
     angular.module("projet", []).controller("ScoreController", function ($http) {
@@ -45,6 +58,17 @@
         };
         this.loadModal = function (resultatId) {
             refreshSelected(resultatId);
+        }
+
+        this.enregistrerScore = function (score){
+            var utilisateurData = {"nom":this.nom,"prenom":this.prenom,"score":score};
+            $http({
+                method: 'POST',
+                url: 'http://localhost:8080/api/scores',
+                data: utilisateurData
+            }).then(function successCallback(response) {
+                refreshSelected(that.selected.id);
+            });
         }
 
     });

@@ -9,23 +9,24 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <p>LISTE DES UTILISATEURS</p>
+    <p>LISTE DES SCORES DES UTILISATEURS</p>
 
     <div class="fluid-container" ng-controller="UtilisateurController as ctrl">
         <ul class="list-group">
-            <li ng-repeat="(id,prenom) in ctrl.utilisateurs " class="list-group-item">
-                {{prenom}}
+            <li ng-repeat="(nomPrenom,score) in ctrl.utilisateurs " class="list-group-item">
+                {{nomPrenom}} a eu {{score.dernier_score}} % a son dernier test et {{score.meilleur_score}} % a son meilleur test.
             </li>
         </ul>
     </div>
 
+    <a href="index.html"> <input type="button" value="Retour a l'accueil"> </a>
 
     <script>
         angular.module("projet", []).controller("UtilisateurController", function ($http) {
             var that = this;
             $http({
                 method: 'GET',
-                url: 'http://localhost:8080/api/utilisateurs/'
+                url: 'http://localhost:8080/api/scoresList/'
             }).then(function successCallback(response) {
                 that.utilisateurs = response.data;
             });
@@ -34,7 +35,7 @@
                 this.selected = {};
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:8080/api/utilisateurs/' + utilisateurId
+                    url: 'http://localhost:8080/api/scoresList/' + utilisateurId
                 }).then(function successCallback(response) {
                     that.selected = response.data;
                 });

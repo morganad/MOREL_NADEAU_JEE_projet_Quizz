@@ -25,7 +25,7 @@
 
     <form action="score.html">
         <input type="hidden" name="nbQuestions" ng-value="ctrl.param1" />
-        <a href="questionsquizz.html"> <input type="submit" value="Lancer"> </a>
+        <a href="questionsquizz.html"> <input type="submit" value="VOIR LE RESULTAT"> </a>
     </form>
 
 </div>
@@ -46,7 +46,6 @@
         }).then(function successCallback(response) {
             that.questions = response.data;
             that.param1= param1;
-            console.log("test : "+that.param1);
         });
 
         var refreshSelected = function (questionId) {
@@ -80,7 +79,6 @@
         }
 
         this.deleteAll= function(){
-            console.log("DELETE TEST")
             $http({
                 method: 'DELETE',
                 url: 'http://localhost:8080/api/deleteReponses',

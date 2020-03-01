@@ -13,7 +13,6 @@ public class Utilisateur implements Comparable<Utilisateur> {
     private long id;
     private String prenom;
     private String nom;
-    private long Score_id;
 
     public Utilisateur() {
     }
@@ -40,14 +39,6 @@ public class Utilisateur implements Comparable<Utilisateur> {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public long getScore_id() {
-        return Score_id;
-    }
-
-    public void setScore_id(long score_id) {
-        Score_id = score_id;
     }
 
     public String toString() {

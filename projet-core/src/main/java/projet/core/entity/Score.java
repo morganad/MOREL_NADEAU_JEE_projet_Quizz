@@ -13,6 +13,7 @@ public class Score implements Comparable<Score> {
     private long id;
     private int dernier_score;
     private int meilleur_score;
+    private long utilisateur_id;
 
     public Score() {
     }
@@ -39,6 +40,14 @@ public class Score implements Comparable<Score> {
 
     public void setMeilleur_score(int meilleur_score) {
         this.meilleur_score = meilleur_score;
+    }
+
+    public long getUtilisateur_id() {
+        return utilisateur_id;
+    }
+
+    public void setUtilisateur_id(long utilisateur_id) {
+        this.utilisateur_id = utilisateur_id;
     }
 
     @Override
