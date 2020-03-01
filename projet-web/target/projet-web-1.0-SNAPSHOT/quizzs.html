@@ -13,10 +13,11 @@
 
     <div class="fluid-container" ng-controller="QuizzController as ctrl">
         <ul class="list-group">
-            <li ng-repeat="(id,titre) in ctrl.quizzs " class="list-group-item">
-                {{titre}}
+            <li ng-repeat="(questionId,quizz) in ctrl.quizzs " class="list-group-item">
+                {{quizz.titre}}
                 <form action="questionsquizz.html">
-                    <input type="hidden" name="quizzId" value="{{id}}" />
+                    <input type="hidden" name="quizzId" value="{{quizz.id}}" />
+                    <input type="hidden" name="questionId" ng-value="{{questionId}}" />
                     <a href="questionsquizz.html"> <input type="submit" value="Lancer"> </a>
                 </form>
             </li>

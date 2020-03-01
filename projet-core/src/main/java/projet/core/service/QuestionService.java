@@ -20,7 +20,7 @@ public class QuestionService {
     }
 
     public Question getQuestionById(Long QuestionId){
-        return questionDAO.getOne(QuestionId);
+        return questionDAO.getById(QuestionId);
     }
 
     public List<Question> findAll() {
@@ -30,6 +30,8 @@ public class QuestionService {
     public List<Question> findAllQuestionsFromQuizz(Long QuizzId) {
         return questionDAO.getAllFromQuizzId(QuizzId);
     }
+
+    public Question findFirstQuestion(Long quizzId) {return questionDAO.findFirstQuestion(quizzId);   }
 
 }
 

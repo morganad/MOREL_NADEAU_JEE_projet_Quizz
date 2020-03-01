@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="projet" lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<p>RESULTAT DU QUIZZ</p>
+
+<div class="fluid-container" ng-controller="ScoreController as ctrl">
+    <ul class="list-group">
+        <li ng-repeat="(score,nbrQuestions) in ctrl.resultats " class="list-group-item">
+            VOTRE SCORE EST DE {{score}} SUR {{nbrQuestions}} !!
+        </li>
+    </ul>
+</div>
+
+
+<script>
+    angular.module("projet", []).controller("ScoreController", function ($http) {
+        var url=window.location.search;
+        var param=url.substring(url.indexOf('=')+1,url.length);
+        console.log("param : "+param);
+        var that = this;
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8080/api/resultats/'+param
+        }).then(function successCallback(response) {
+            that.resultats = response.data;
+        });
+
+        var refreshSelected = function (resultatId) {
+            this.selected = {};
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8080/api/resultats/' +param+ utilisateurId
+            }).then(function successCallback(response) {
+                that.selected = response.data;
+            });
+
+        };
+        this.loadModal = function (resultatId) {
+            refreshSelected(resultatId);
+        }
+
+    });
+</script>
+
+</body>
+</html>

@@ -15,5 +15,14 @@ public interface QuestionDAO extends JpaRepository<Question, Long> {
             nativeQuery = true)
     List<Question> getAllFromQuizzId(@Param("quizz_id") long quizzId);
 
+    @Query(
+            value = "SELECT * FROM question q WHERE q.id =:id",
+            nativeQuery = true)
+    Question getById(@Param("id") long questionId);
+
+    @Query(
+            value = "SELECT * FROM question q WHERE q.quizz_id=:quizz_id LIMIT 1 ",
+            nativeQuery = true)
+    Question findFirstQuestion(@Param("quizz_id")Long quizzId);
 }
 

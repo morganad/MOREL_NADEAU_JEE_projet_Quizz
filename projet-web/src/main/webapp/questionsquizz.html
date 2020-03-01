@@ -9,58 +9,82 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<p>LISTE DES QUESTIONS DU QUIZZ TEST</p>
+<p>LISTE DES QUESTIONS DU QUIZZ</p>
 
-<div class="fluid-container" ng-controller="QuestionController as ctrl">
+<div class="fluid-container" ng-controller="QuestionController as ctrl" ng-init="ctrl.deleteAll()">
     <ul class="list-group">
-        <li ng-repeat="(id,intitule) in ctrl.questions " class="list-group-item">
-            <ul>{{intitule}}
-                <li ng-repeat="(id,reponse) in ctrl.questions1 " class="list-group-item">
-                    <button type="button" class="btn">{{reponse}}</button><br />
+        <li ng-repeat="(questionIntitule,reponses) in ctrl.questions " class="list-group-item">
+            <ul>{{questionIntitule}}<br/>
+                <li ng-repeat="reponse in reponses" class="list-group-item">
+                    <button type="button" ng-class="questionIntitule" ng-click="ctrl.valider(questionIntitule,reponse.id)" class="btn">{{reponse.reponse}}</button><br />
                 </li>
             </ul>
+
         </li>
     </ul>
-</div>
 
+    <form action="score.html">
+        <input type="hidden" name="nbQuestions" ng-value="ctrl.param1" />
+        <a href="questionsquizz.html"> <input type="submit" value="Lancer"> </a>
+    </form>
+
+</div>
 <script>
     angular.module("projet", []).controller("QuestionController", function ($http) {
-        var parameter = window.location.search;
-        var parameter2=1;
-        parameter=parameter.substring(parameter.indexOf('=')+1,parameter.length);
+
+        var url=window.location.search;
+        var param1=url.substring(1,url.indexOf('&'));
+        param1=param1.substring(param1.indexOf('=')+1,param1.length);
+        var param2=url.substring(url.indexOf('&')+1);
+        param2=param2.substring(param2.indexOf('=')+1,param2.length);
+        console.log("param1 :"+ param1);
+        console.log("param2 :"+ param2);
         var that = this;
         $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/questions/'+ parameter
+            url: 'http://localhost:8080/api/questions/'+ param1
         }).then(function successCallback(response) {
             that.questions = response.data;
-        });
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8080/api/reponses/'+parameter2
-        }).then(function successCallback(response1) {
-            that.questions1 = response1.data;
+            that.param1= param1;
         });
 
         var refreshSelected = function (questionId) {
             this.selected = {};
             $http({
                 method: 'GET',
-                url: 'http://localhost:8080/api/questions/'+ parameter + questionId
+                url: 'http://localhost:8080/api/questions/'+ param1 + questionId
             }).then(function successCallback(response) {
                 that.selected = response.data;
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:8080/api/reponses/'+ parameter2 + questionId
-                }).then(function successCallback(response1) {
-                    that.selected = response1.data;
-                });
             });
-
 
         };
         this.loadModal = function (questionId) {
             refreshSelected(questionId);
+        }
+
+        this.valider= function (question,reponse){
+            console.log("VALIDER "+question);
+            console.log("REPONSE "+reponse);
+            var boutons = document.getElementsByClassName(question);
+            for (var i = 0; i < boutons.length; i++) {
+                boutons[i].disabled = true;
+            }
+            $http({
+                method: 'POST',
+                url: 'http://localhost:8080/api/reponsesUtilisateurs',
+                data: reponse
+            }).then(function successCallback(response) {
+                refreshSelected(that.selected.id);
+            });
+        }
+
+        this.deleteAll= function(){
+            $http({
+                method: 'DELETE',
+                url: 'http://localhost:8080/api/deleteReponses',
+            }).then(function successCallback(response) {
+                refreshSelected(that.selected.id);
+            });
         }
 
     });

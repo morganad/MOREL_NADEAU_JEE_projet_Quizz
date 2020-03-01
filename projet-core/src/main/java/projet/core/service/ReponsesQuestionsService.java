@@ -19,4 +19,7 @@ public class ReponsesQuestionsService {
     public List<ReponsesQuestions> findAllReponsesFromQuestionId(Long QuestionId) {
         return reponsesQuestionsDAO.getAllFromQuestionId(QuestionId);
     }
+
+    public List<ReponsesQuestions> findALl() { return reponsesQuestionsDAO.findAll();
+    }
 }

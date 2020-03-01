@@ -2,6 +2,7 @@ package projet.core.service;
 
 import org.springframework.stereotype.Service;
 import projet.core.dao.QuizzDAO;
+import projet.core.entity.Question;
 import projet.core.entity.Quizz;
 import projet.core.entity.Utilisateur;
 
@@ -17,4 +18,5 @@ public class QuizzService {
     public QuizzService(final QuizzDAO quizzDAO) { this.quizzDAO = quizzDAO; }
 
     public List<Quizz> findAll() { return quizzDAO.findAll(); }
+
 }

@@ -31,4 +31,5 @@ public class ReponsesUtilisateurs {
     public void setReponse_question_id(long reponse_question_id) {
         this.reponse_question_id = reponse_question_id;
     }
+
 }
