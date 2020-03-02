@@ -10,8 +10,8 @@ De même, le fonctionnement a été favorisé, donc la mise en page et le style 
 ## Prérequis 
 
 + Java version 8
-+ Importer la base de données dans un système de gestion de base de données MySQL : le fichier "jee_projet_quizz.sql"
-+  Déployer l'application sur un serveur tomcat. Ne mettre que "/" comme Application Context dans l'onglet "Deployment".
++ Créer une base de données avec comme nom "jee_projet_quizz" puis importer le fichier "jee_projet_quizz.sql" dans votre système de gestion de base de données MySQL.
++ Déployer l'application sur un serveur tomcat. Ne mettre que "/" comme Application Context dans l'onglet "Deployment".
 
 ## Description du projet
 
